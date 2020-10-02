@@ -1,6 +1,6 @@
 package com.wellybean.gersgarage.model;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,5 +34,5 @@ public class Service {
     private Integer durationInMinutes;
 
     @OneToMany(mappedBy = "service")
-    private Set<Booking> bookings;
+    private List<Booking> bookings;
 }

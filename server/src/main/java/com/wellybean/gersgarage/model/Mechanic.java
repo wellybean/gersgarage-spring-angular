@@ -1,6 +1,6 @@
 package com.wellybean.gersgarage.model;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,5 +26,5 @@ public class Mechanic {
     private String name;
 
     @OneToMany(mappedBy = "mechanic")
-    private Set<Booking> bookings;
+    private List<Booking> bookings;
 }
