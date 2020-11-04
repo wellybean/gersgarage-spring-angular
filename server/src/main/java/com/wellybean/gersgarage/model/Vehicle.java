@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Entity
@@ -27,6 +26,10 @@ public class Vehicle {
     @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
+
+    @NotNull
+    @Column(name = "type")
+    private String type;
 
     @NotNull
     @Column(name = "make")

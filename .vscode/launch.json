@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-GersgarageApplication<gersgarage>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.wellybean.gersgarage.GersgarageApplication",
+            "projectName": "gersgarage",
+            "args": ""
+        }
+    ]
+}
