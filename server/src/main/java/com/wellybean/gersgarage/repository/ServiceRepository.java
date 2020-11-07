@@ -6,5 +6,4 @@ import org.springframework.data.repository.CrudRepository;
 
 @Repository
 public interface ServiceRepository extends CrudRepository<Service, Long> {
-    
 }

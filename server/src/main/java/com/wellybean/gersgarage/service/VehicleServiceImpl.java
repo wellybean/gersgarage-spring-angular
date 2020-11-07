@@ -9,7 +9,6 @@ import com.wellybean.gersgarage.repository.UserRepository;
 import com.wellybean.gersgarage.repository.VehicleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service

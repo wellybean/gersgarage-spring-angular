@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
@@ -18,6 +19,7 @@ import lombok.Data;
 @Data
 public class Service {
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -33,6 +35,7 @@ public class Service {
     @Column(name = "duration_in_minutes")
     private Integer durationInMinutes;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "service")
     private List<Booking> bookings;
 }
