@@ -1,0 +1,57 @@
+<div class="content-wrapper">
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+        <h1>User Sign Pp</h1>
+
+        <mat-form-field [style.width.px]=300 appearance="fill">
+            <mat-label>First name</mat-label>
+            <input matInput type="text" formControlName="firstName" required>
+        </mat-form-field>
+        <br />
+        <mat-form-field [style.width.px]=300 appearance="fill">
+            <mat-label>Last name</mat-label>
+            <input matInput type="text" formControlName="lastName" required>
+        </mat-form-field>
+        <br />
+        <mat-form-field [style.width.px]=300 appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required>
+        </mat-form-field>
+        <br />
+        <mat-form-field [style.width.px]=300 appearance="fill">
+            <mat-label>Phone number</mat-label>
+            <input matInput type="text" formControlName="phoneNumber" required>
+        </mat-form-field>
+        <br />
+        <mat-form-field [style.width.px]=300 appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="username" required>
+        </mat-form-field>
+        <br />
+        <mat-form-field [style.width.px]=300 appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <br />
+        <mat-form-field [style.width.px]=300 appearance="fill">
+            <mat-label>Password confirmation</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="passwordConfirmation" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <br />
+
+        <button mat-raised-button [style.width.px]=300 color="primary" type="submit" [disabled]="!signUpForm.valid">Sign up</button>
+        
+        <br />
+        <br />
+        <br />
+        <p>Already resgistered?</p>
+        
+        <button mat-raised-button [style.width.px]=300 >Log in</button>
+        
+    </form>
+</div>

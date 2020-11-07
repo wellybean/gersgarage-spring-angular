@@ -1,0 +1,31 @@
+<div class="content-wrapper">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <h1>User Login</h1>
+
+        <mat-form-field [style.width.px]=300 appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="username" required>
+            
+        </mat-form-field>
+        <br />
+        <mat-form-field [style.width.px]=300 appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <br />
+
+        <button mat-raised-button [style.width.px]=300 color="primary" type="submit" [disabled]="!loginForm.valid">Log in</button>
+        
+        <br />
+        <br />
+        <br />
+        <p>Not yet resgistered?</p>
+        
+        <button mat-raised-button [style.width.px]=300 >Sign up</button>
+        
+    </form>
+</div>
+
