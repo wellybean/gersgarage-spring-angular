@@ -1,4 +1,4 @@
-import { Table, TableBody, TableContainer, TableHead, TableRow, TableCell, Typography, Button, Modal, FormControl, InputLabel, OutlinedInput } from "@material-ui/core"
+import { Table, TableBody, TableContainer, TableHead, TableRow, TableCell, Typography, Button, Modal, FormControl, InputLabel, OutlinedInput, Select, MenuItem } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import DeleteIcon from '@material-ui/icons/Delete'
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,6 +23,13 @@ const useStyles = makeStyles((theme) =>({
     },
     textField: {
         marginTop: theme.spacing(1),
+        width:"100%"
+    },
+    select: {
+        marginTop: theme.spacing(1),
+        width:"100%"
+    }, tableHead: {
+        fontWeight: "bold"
     }
 }));
 
@@ -99,15 +106,19 @@ export default function Vehicles() {
                     <form>
                         <br />
                         <h2>Vehicle registration</h2>
-                        <FormControl variant="outlined" className={classes.textField}>
+                        <FormControl variant="outlined" className={classes.select}>
                             <InputLabel htmlFor="type">Vehicle Type</InputLabel>
-                            <OutlinedInput 
+                            <Select
                                 id="type"
-                                type="text"
+                                type=""
                                 value={newVehicleInformation.type}
                                 onChange={handleChange('type')}
-                                labelWidth={70}
-                            />
+                                labelWidth={100}
+                            >
+                                <MenuItem value="Car">Car</MenuItem>
+                                <MenuItem value="Motorbike">Motorbike</MenuItem>
+                                <MenuItem value="Van">Van</MenuItem>
+                            </Select>
                         </FormControl>
                         <br />
                         <FormControl variant="outlined" className={classes.textField}>
@@ -117,7 +128,7 @@ export default function Vehicles() {
                                 type="text"
                                 value={newVehicleInformation.make}
                                 onChange={handleChange('make')}
-                                labelWidth={70}
+                                labelWidth={100}
                             />
                         </FormControl>
                         <br />
@@ -128,7 +139,7 @@ export default function Vehicles() {
                                 type="text"
                                 value={newVehicleInformation.model}
                                 onChange={handleChange('model')}
-                                labelWidth={70}
+                                labelWidth={100}
                             />
                         </FormControl>
                         <br />
@@ -139,19 +150,23 @@ export default function Vehicles() {
                                 type="text"
                                 value={newVehicleInformation.licensePlate}
                                 onChange={handleChange('licensePlate')}
-                                labelWidth={70}
+                                labelWidth={100}
                             />
                         </FormControl>
                         <br />
-                        <FormControl variant="outlined" className={classes.textField}>
-                            <InputLabel htmlFor="engine">Engine</InputLabel>
-                            <OutlinedInput 
+                        <FormControl variant="outlined" className={classes.select}>
+                            <InputLabel htmlFor="engine">Engine type</InputLabel>
+                            <Select
                                 id="engine"
-                                type="text"
+                                type="select"
                                 value={newVehicleInformation.engine}
                                 onChange={handleChange('engine')}
-                                labelWidth={70}
-                            />
+                                labelWidth={100}
+                            >
+                                <MenuItem value="Petrol">Petrol</MenuItem>
+                                <MenuItem value="Diesel">Diesel</MenuItem>
+                                <MenuItem value="Hybrid">Hybrid</MenuItem>
+                            </Select>
                         </FormControl>
                         <br />
                         <br />
@@ -169,13 +184,13 @@ export default function Vehicles() {
                 <TableContainer>
                     <Table className={classes.table}>
                         <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Vehicle type</TableCell>
-                                <TableCell align="center">Make</TableCell>
-                                <TableCell align="center">Model</TableCell>
-                                <TableCell align="center">License Plate</TableCell>
-                                <TableCell align="center">Engine</TableCell>
-                                <TableCell align="center"></TableCell>
+                            <TableRow className={classes.tableHead}>
+                                <TableCell className={classes.tableHead} align="center">Vehicle type</TableCell>
+                                <TableCell className={classes.tableHead} align="center">Make</TableCell>
+                                <TableCell className={classes.tableHead} align="center">Model</TableCell>
+                                <TableCell className={classes.tableHead} align="center">License Plate</TableCell>
+                                <TableCell className={classes.tableHead} align="center">Engine</TableCell>
+                                <TableCell className={classes.tableHead} align="center"></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
