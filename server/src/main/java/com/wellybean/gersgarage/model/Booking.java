@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
@@ -37,6 +38,7 @@ public class Booking {
     private LocalDateTime time;
     
     @NotNull
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
