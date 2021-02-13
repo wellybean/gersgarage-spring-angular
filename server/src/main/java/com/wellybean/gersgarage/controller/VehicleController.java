@@ -10,6 +10,8 @@ import com.wellybean.gersgarage.security.service.UserDetailsImpl;
 import com.wellybean.gersgarage.service.UserService;
 import com.wellybean.gersgarage.service.VehicleService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/vehicle")
 @PreAuthorize("hasRole('USER')")
 public class VehicleController {
+
+    private static final Logger LOGGER = LogManager.getLogger(VehicleController.class);
     
     @Autowired
     private VehicleService vehicleService;
@@ -56,10 +60,13 @@ public class VehicleController {
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String username = loggedInUser.getName();
 
+        LOGGER.info("[VEHICLE-CONTROL] - Going to fetch vehicles for user {}...", username);
         Optional<List<Vehicle>> vehiclesList = vehicleService.getVehiclesForUser(username);
 
         if(vehiclesList.isPresent()) {
+            LOGGER.info("[VEHICLE-CONTROL] - Found vehicles for user {}.", username);
             List<VehicleDTO> response = vehiclesList.get().stream().map(VehicleDTO::new).collect(Collectors.toList());
+            LOGGER.info("[VEHICLE-CONTROL] - Returning list of {} vehicles for user {}", response.size(), username);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
 

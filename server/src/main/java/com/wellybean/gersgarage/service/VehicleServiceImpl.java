@@ -8,8 +8,10 @@ import com.wellybean.gersgarage.model.Vehicle;
 import com.wellybean.gersgarage.repository.UserRepository;
 import com.wellybean.gersgarage.repository.VehicleRepository;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class VehicleServiceImpl implements VehicleService {
@@ -25,12 +27,15 @@ public class VehicleServiceImpl implements VehicleService {
         vehicleRepository.delete(vehicle);
     }
 
+    @Transactional
     @Override
     public Optional<List<Vehicle>> getVehiclesForUser(final String username) {
         Optional<User> userOptional = userRepository.findByUsername(username);
         if(userOptional.isPresent()) {
             Optional<List<Vehicle>> vehicles = vehicleRepository.findAllByUser(userOptional.get());
             if(vehicles.isPresent()){
+                // This is necessary so that the bookings list is initialised in this transactional context and a LazyInitializationException is avoided
+                vehicles.get().forEach(vehicle -> vehicle.getBookings().size());
                 return vehicles;
             }
         }

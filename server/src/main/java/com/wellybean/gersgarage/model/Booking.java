@@ -2,6 +2,7 @@ package com.wellybean.gersgarage.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
@@ -34,9 +36,10 @@ public class Booking {
 
     @NotNull
     @Column(name = "time")
-    private LocalDateTime time;
+    private LocalTime time;
     
     @NotNull
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

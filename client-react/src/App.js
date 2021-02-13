@@ -16,6 +16,12 @@ import { Switch, Redirect, Route } from 'react-router-dom'
   
   const [loggedStatus, setLoggedStatus] = useState(authService.isLoggedIn())
 
+  // useEffect(() => {
+  //   authService.isTokenValid().then(
+  //     error => authService.logout()
+  //   )
+  // })
+
   const loggedStatusChange = () => {
     setLoggedStatus(authService.isLoggedIn())
   }

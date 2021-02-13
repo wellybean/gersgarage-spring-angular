@@ -17,7 +17,7 @@ public class VehicleDTO {
     private String model;
     private String licensePlate;
     private String engine;
-    private List<Long> bookingIds;
+    //private List<Long> bookingIds;
 
     public VehicleDTO(Vehicle vehicle) {
         this.id = vehicle.getId();
@@ -27,6 +27,6 @@ public class VehicleDTO {
         this.model = vehicle.getModel();
         this.licensePlate = vehicle.getLicensePlate();
         this.engine = vehicle.getEngine();
-        this.bookingIds = vehicle.getBookings() == null ? new ArrayList<>() : vehicle.getBookings().stream().map(Booking::getId).collect(Collectors.toList());
+        //this.bookingIds = vehicle.getBookings() == null ? new ArrayList<>() : vehicle.getBookings().stream().map(Booking::getId).collect(Collectors.toList());
     }
 }

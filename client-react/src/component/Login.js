@@ -15,6 +15,8 @@ import Button from '@material-ui/core/Button';
 import { Link, useHistory } from 'react-router-dom';
 
 import authService from '../service/AuthService'
+import notificationService from '../service/NotificationService'
+import { ToastContainer } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,13 +61,21 @@ export default function Login({ loggedStatusChange }) {
                 () => {
                     loggedStatusChange()
                     history.push("/user-home")
+                    notificationService.success("Login successful")
                 },
-                error => console.log(error)
+                () =>  {
+                    notificationService.error("Invalid usename and/or password")
+                }
             )
+    }
+
+    const isFormValid = () => {
+        return credentials.username !== '' && credentials.password !== ''
     }
 
     return(
         <div className="root">
+            <ToastContainer />
             <form>
                 <h2>Login</h2>
                 <FormControl variant="outlined" className={classes.textField}>
@@ -102,7 +112,7 @@ export default function Login({ loggedStatusChange }) {
                 </FormControl>
                 <br />
                 <br />
-                <Button variant="contained" color="primary" className={classes.button} onClick={handleClickLogin}>
+                <Button variant="contained" color="primary" className={classes.button} onClick={handleClickLogin} disabled={!isFormValid()}>
                     Login
                 </Button>
                 <br />
