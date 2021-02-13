@@ -50,6 +50,6 @@ public class Vehicle {
     @Column(name = "engine")
     private String engine;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "vehicle")
     private List<Booking> bookings;
 }

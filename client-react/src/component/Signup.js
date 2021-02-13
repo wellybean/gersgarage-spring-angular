@@ -47,6 +47,12 @@ export default function Signup() {
         passwordConfirmation: ''
     })
 
+    const isFormValid = () => {
+        return userInformation.firstName !== '' && userInformation.lastName !== '' && userInformation.email !== '' &&
+                userInformation.phoneNumber !== '' && userInformation.username !== '' && userInformation.password !== '' &&
+                userInformation.passwordConfirmation !== ''
+    }
+
     const handleClickShowPassword = (event) => {
         event.preventDefault()
         setVisibility(!visibility)
@@ -150,8 +156,30 @@ export default function Signup() {
                     />
                 </FormControl>
                 <br />
+                <FormControl variant="outlined" className={classes.textField}>
+                    <InputLabel htmlFor="passwordConfirmation">Password confirmation</InputLabel>
+                    <OutlinedInput
+                        id="passwordConfirmation"
+                        type={visibility ? 'text' : 'password'}
+                        value={userInformation.passwordConfirmation}
+                        onChange={handleChange('passwordConfirmation')}
+                        endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                            >
+                            {visibility ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                        }
+                        labelWidth={70}
+                    />
+                </FormControl>
                 <br />
-                <Button variant="contained" color="primary" className={classes.button} onClick={handleClickSignUp}>
+                <br />
+                <Button variant="contained" color="primary" className={classes.button} onClick={handleClickSignUp} disabled={!isFormValid()}>
                     Register
                 </Button>
                 <br />

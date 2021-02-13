@@ -2,6 +2,7 @@ package com.wellybean.gersgarage.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -35,7 +36,7 @@ public class Booking {
 
     @NotNull
     @Column(name = "time")
-    private LocalDateTime time;
+    private LocalTime time;
     
     @NotNull
     @JsonIgnore

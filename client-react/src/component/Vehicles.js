@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react"
 import DeleteIcon from '@material-ui/icons/Delete'
 import { makeStyles } from '@material-ui/core/styles';
 import vehicleService from "../service/VehicleService"
+import authService from "../service/AuthService"
+import { useHistory } from "react-router-dom";
+import notificationService from '../service/NotificationService'
 
 const useStyles = makeStyles((theme) =>({
     table: {
@@ -30,10 +33,14 @@ const useStyles = makeStyles((theme) =>({
         width:"100%"
     }, tableHead: {
         fontWeight: "bold"
+    }, panel: {
+        textAlign: "center"
     }
 }));
 
 export default function Vehicles() {
+
+    const history = useHistory();
 
     const[vehicles, setVehicles] = useState([])
     const[vehicleModalOpen, setVehicleOpenModal] = useState(false)
@@ -46,19 +53,34 @@ export default function Vehicles() {
         engine: ''
     })
 
+    const isFormValid = () => {
+        return newVehicleInformation.type !== '' && newVehicleInformation.make !== '' && newVehicleInformation.model !== '' && 
+        newVehicleInformation.licensePlate !== '' && newVehicleInformation.engine !== ''
+    }
+
     useEffect(() => {
         vehicleService.getVehiclesForUser().then(
-            response => setVehicles(response)
+            response => {
+                setVehicles(response)
+            },
+            error => {
+                if(error.status === 401) {
+                    authService.logout()
+                    history.push("/login")
+                }
+            }
         )
-    }, [])
+    }, [history])
 
     const handleClickDeleteVehicle = id => {
         vehicleService
             .deleteVehicle(id)
-            .then(() =>
-                setVehicles(vehicles.filter(vehicle => vehicle.id !== id))
-            ).catch(error =>
-                console.log(error)
+            .then(
+                () => {
+                    setVehicles(vehicles.filter(vehicle => vehicle.id !== id))
+                    notificationService.success("Vehicle deleted successfully.")
+                },
+                error => notificationService.error(`Failed to delete vehicle due to: ${error}`)
             )
     }
 
@@ -71,11 +93,15 @@ export default function Vehicles() {
         event.preventDefault()
         vehicleService
             .registerVehicle(newVehicleInformation)
-            .then(newVehicle => 
+            .then(newVehicle => {
                 setVehicles(vehicles.concat(newVehicle))
-            )
-            .catch(error => console.log(error))
-        setNewVehicleInformation({type: "", make: "", model: "", licensePlate: "", engine: ""})
+                clearAndCloseModal()
+                notificationService.success("Vehicle registered successfully.")
+            })
+            .catch(error => {
+                clearAndCloseModal()
+                notificationService.error(`Failed to register vehicle due to: ${error.getMessage()}`)
+            })
     }
 
     const handleCloseVehicleModal = () => {
@@ -86,8 +112,13 @@ export default function Vehicles() {
         setNewVehicleInformation({ ...newVehicleInformation, [prop]: event.target.value })
     }
 
+    const clearAndCloseModal = () => {
+        setNewVehicleInformation({type: "", make: "", model: "", licensePlate: "", engine: ""})
+        setVehicleOpenModal(false)
+    }
+
     return(
-        <div>
+        <div className={classes.panel}>
             <Button
                 variant="contained" 
                 color="primary" 
@@ -170,7 +201,7 @@ export default function Vehicles() {
                         </FormControl>
                         <br />
                         <br />
-                        <Button variant="contained" color="primary" className={classes.button} onClick={handleClickRegisterVehicle}>
+                        <Button variant="contained" color="primary" className={classes.button} onClick={handleClickRegisterVehicle} disabled={!isFormValid()}>
                             Register
                         </Button>   
                     </form>
@@ -180,7 +211,7 @@ export default function Vehicles() {
             <br />
             {
                 vehicles.length === 0 ?
-                <Typography>No vehicles available</Typography> :
+                <Typography component={'div'}>No vehicles available</Typography> :
                 <TableContainer>
                     <Table className={classes.table}>
                         <TableHead>

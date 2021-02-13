@@ -3,6 +3,8 @@ import { useTheme } from '@material-ui/core/styles'
 import React, { useState } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import Vehicles from './Vehicles'
+import Bookings from './Bookings'
+import { ToastContainer } from "react-toastify";
 
 export default function UserHome() {
 
@@ -21,6 +23,7 @@ export default function UserHome() {
 
     return(
         <div>
+            <ToastContainer />
             <AppBar position="static" color="default">
                 <Tabs
                     value={tab}
@@ -43,7 +46,7 @@ export default function UserHome() {
                     <Vehicles />
                 </TabPanel>
                 <TabPanel value={tab} index={1} id="tab-1" aria-controls="tabpanel-1" dir={theme.direction}>
-                    tab 2
+                    <Bookings />
                 </TabPanel>
                 <TabPanel value={tab} index={2} id="tab-2" aria-controls="tabpanel-2" dir={theme.direction}>
                     tab 3
@@ -63,7 +66,7 @@ const TabPanel = ({ value, index, children }) => {
         >
             {value === index && (
                 <Box p={3}>
-                    <Typography>
+                    <Typography component={'div'}>
                         {children}
                     </Typography>
                 </Box>

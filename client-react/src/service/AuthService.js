@@ -27,6 +27,10 @@ const signUp = (newUserData) => {
             )
 }
 
+const isTokenValid = () => {
+    return axios.get(baseUrl + 'validateToken').then(response => response.data)
+}
+
 const logout = () => {
     localStorageService.removeToken()
 }
@@ -35,4 +39,4 @@ const isLoggedIn = () => {
     return localStorageService.isTokenSet()
 }
 
-export default { login, signUp, logout, isLoggedIn }
+export default { login, signUp, logout, isLoggedIn, isTokenValid }

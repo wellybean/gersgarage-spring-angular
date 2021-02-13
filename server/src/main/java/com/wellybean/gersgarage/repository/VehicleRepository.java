@@ -1,6 +1,7 @@
 package com.wellybean.gersgarage.repository;
 
 import com.wellybean.gersgarage.model.User;
+import org.springframework.lang.NonNullApi;
 import org.springframework.stereotype.Repository;
 import com.wellybean.gersgarage.model.Vehicle;
 import org.springframework.data.repository.CrudRepository;

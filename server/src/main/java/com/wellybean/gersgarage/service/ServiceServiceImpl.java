@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiceServiceImpl implements ServiceService{
@@ -18,5 +19,10 @@ public class ServiceServiceImpl implements ServiceService{
         List<com.wellybean.gersgarage.model.Service> listOfServices = new ArrayList<>();
         serviceRepository.findAll().forEach(listOfServices::add);
         return listOfServices;
+    }
+
+    @Override
+    public Optional<com.wellybean.gersgarage.model.Service> findById(Long id) {
+        return serviceRepository.findById(id);
     }
 }

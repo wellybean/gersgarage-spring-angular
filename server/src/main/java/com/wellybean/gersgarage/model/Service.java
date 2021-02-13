@@ -19,7 +19,6 @@ import lombok.Data;
 @Data
 public class Service {
     @Id
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
