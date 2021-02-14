@@ -12,11 +12,15 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "service")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

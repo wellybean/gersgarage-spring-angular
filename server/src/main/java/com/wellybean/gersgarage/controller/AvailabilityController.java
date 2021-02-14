@@ -1,5 +1,9 @@
 package com.wellybean.gersgarage.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
 import com.wellybean.gersgarage.model.Service;
 import com.wellybean.gersgarage.service.AvailabilityService;
 import com.wellybean.gersgarage.service.ServiceService;
@@ -12,11 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/availability")
 @PreAuthorize("hasRole('USER')")
@@ -27,14 +26,13 @@ public class AvailabilityController {
     private final AvailabilityService availabilityService;
     private final ServiceService serviceService;
 
-    @Autowired
-    public AvailabilityController(final AvailabilityService availabilityService, final ServiceService serviceService) {
+    @Autowired public AvailabilityController(final AvailabilityService availabilityService, final ServiceService serviceService) {
         this.availabilityService = availabilityService;
         this.serviceService = serviceService;
     }
 
     @GetMapping("/dates/{id}")
-    public ResponseEntity<?> getAvailableDates(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getAvailableDates(@PathVariable("id") final Long id) {
 
         LOGGER.info("[AVAIL-CONTROL] - Reached endpoint for getting available dates for a service. Trying to find service with id: {}", id);
         Optional<Service> serviceOptional = serviceService.findById(id);
@@ -50,7 +48,8 @@ public class AvailabilityController {
     }
 
     @GetMapping("/times/{id}/{date}")
-    public ResponseEntity<?> getAvailableTimes(@PathVariable("id") Long serviceId, @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public ResponseEntity<?> getAvailableTimes(@PathVariable("id") final Long serviceId,
+                                               @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate date) {
 
         LOGGER.info("[AVAIL-CONTROL] - Reached endpoint for getting available times for a service at a specific date. " +
                 "Trying to find service with id {}", serviceId);

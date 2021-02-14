@@ -1,10 +1,8 @@
 package com.wellybean.gersgarage.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,34 +15,34 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "booking")
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Data
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
+    @NonNull
     @Column(name = "date")
     private LocalDate date;
 
-    @NotNull
+    @NonNull
     @Column(name = "time")
     private LocalTime time;
     
-    @NotNull
+    @NonNull
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @NotNull
+    @NonNull
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
@@ -53,7 +51,7 @@ public class Booking {
     @JoinColumn(name = "mechanic_id")
     private Mechanic mechanic;
 
-    @NotNull
+    @NonNull
     @ManyToOne
     @JoinColumn(name = "service_id")
     private Service service;
