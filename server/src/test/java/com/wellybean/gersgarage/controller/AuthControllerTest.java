@@ -1,11 +1,14 @@
 package com.wellybean.gersgarage.controller;
 
+import java.util.Collections;
 import com.wellybean.gersgarage.payload.request.LoginRequest;
 import com.wellybean.gersgarage.payload.response.JwtResponse;
 import com.wellybean.gersgarage.repository.RoleRepository;
 import com.wellybean.gersgarage.repository.UserRepository;
 import com.wellybean.gersgarage.security.jwt.JwtUtils;
 import com.wellybean.gersgarage.security.service.UserDetailsImpl;
+import static com.wellybean.gersgarage.model.ERole.ROLE_USER;
+import static com.wellybean.gersgarage.util.Constants.*;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +21,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import java.util.Collections;
-
-import static com.wellybean.gersgarage.model.ERole.ROLE_USER;
-import static com.wellybean.gersgarage.util.Constants.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -36,8 +35,7 @@ public class AuthControllerTest {
     @Mock private PasswordEncoder encoder;
     @Mock private JwtUtils jwtUtils;
 
-    @Test
-    public void authenticateUser_Succeeds() {
+    @Test public void authenticateUser_Succeeds() {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername(VALID_USERNAME);
         loginRequest.setPassword(VALID_PASSWORD);
@@ -56,9 +54,7 @@ public class AuthControllerTest {
         assertEquals(expected, actual);
     }
 
-    @Ignore
-    @Test
-    public void registerUser() {
+    @Ignore @Test public void registerUser() {
 
     }
 }

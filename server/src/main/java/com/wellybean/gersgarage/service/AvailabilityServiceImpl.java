@@ -1,27 +1,36 @@
 package com.wellybean.gersgarage.service;
 
-import com.wellybean.gersgarage.model.Booking;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import com.wellybean.gersgarage.model.Booking;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+/**
+ * Service for obtaining available dates for a specific service and times for specific dates and services
+ */
 @Service
 public class AvailabilityServiceImpl implements AvailabilityService {
 
     private final BookingService bookingService;
 
-    @Autowired
-    public AvailabilityServiceImpl(final BookingService bookingService) {
+    /**
+     * Constructor for class AvailabilityServiceImpl
+     * @param bookingService  service for bookings
+     */
+    @Autowired public AvailabilityServiceImpl(final BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
-    @Override
-    public List<LocalDate> getAvailableDatesForService(final com.wellybean.gersgarage.model.Service service) {
+    /**
+     * Get all available dates for a specific service for the next three months from tomorrow
+     * @param service  maintenance check service
+     * @return list of available dates
+     */
+    @Override public List<LocalDate> getAvailableDatesForService(final com.wellybean.gersgarage.model.Service service) {
         // Final list
         List<LocalDate> listAvailableDates = new ArrayList<>();
 
@@ -52,8 +61,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
      * @param date  the date of the maintenance service
      * @return  the list of available slots
      */
-    @Override
-    public List<LocalTime> getAvailableTimesForServiceAndDate(final com.wellybean.gersgarage.model.Service service, LocalDate date) {
+    @Override public List<LocalTime> getAvailableTimesForServiceAndDate(final com.wellybean.gersgarage.model.Service service, LocalDate date) {
 
         LocalTime garageOpening = LocalTime.of(9,0);
         LocalTime garageClosing = LocalTime.of(17, 0);
