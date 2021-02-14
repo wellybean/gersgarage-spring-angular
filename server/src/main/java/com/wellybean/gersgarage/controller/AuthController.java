@@ -3,9 +3,7 @@ package com.wellybean.gersgarage.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import com.wellybean.gersgarage.model.ERole;
 import com.wellybean.gersgarage.model.Role;
 import com.wellybean.gersgarage.model.User;
@@ -17,7 +15,6 @@ import com.wellybean.gersgarage.repository.RoleRepository;
 import com.wellybean.gersgarage.repository.UserRepository;
 import com.wellybean.gersgarage.security.jwt.JwtUtils;
 import com.wellybean.gersgarage.security.service.UserDetailsImpl;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

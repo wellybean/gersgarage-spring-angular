@@ -1,5 +1,8 @@
 package com.wellybean.gersgarage.service;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 import com.wellybean.gersgarage.model.Booking;
 import com.wellybean.gersgarage.model.User;
 import com.wellybean.gersgarage.repository.BookingRepository;
@@ -8,24 +11,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-
 /**
- * Service for CRUD operations in Booking entity
+ * Service for CRUD operations for Booking entity
  */
-@Service public class BookingServiceImpl implements BookingService{
+@Service
+public class BookingServiceImpl implements BookingService{
 
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
 
     /**
-     * Constructor for class BookingServiceImpl
+     * Constructs an instance of BookingServiceImpl
      * @param bookingRepository  booking repository interface
      * @param userRepository  user repository interface
      */
-    @Autowired public BookingServiceImpl(final BookingRepository bookingRepository,
+    @Autowired
+    public BookingServiceImpl(final BookingRepository bookingRepository,
                                          final UserRepository userRepository) {
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
@@ -36,7 +37,9 @@ import java.util.Optional;
      * @param username user's username
      * @return optional of list of bookings for user
      */
-    @Transactional @Override public Optional<List<Booking>> getAllBookingsForUser(String username) {
+    @Transactional
+    @Override
+    public Optional<List<Booking>> getAllBookingsForUser(String username) {
         Optional<User> userOptional = userRepository.findByUsername(username);
         if(userOptional.isPresent()) {
             Optional<List<Booking>> bookings = bookingRepository.findAllByUser(userOptional.get());
@@ -58,7 +61,8 @@ import java.util.Optional;
      * @param date  date
      * @return optional of list of bookings
      */
-    @Override public Optional<List<Booking>> getAllBookingsForDate(LocalDate date) {
+    @Override
+    public Optional<List<Booking>> getAllBookingsForDate(LocalDate date) {
         return bookingRepository.findAllByDate(date);
     }
 
@@ -67,7 +71,8 @@ import java.util.Optional;
      * @param booking  booking info with required fields
      * @return persisted booking
      */
-    @Override public Booking makeBooking(Booking booking) {
+    @Override
+    public Booking makeBooking(Booking booking) {
         return bookingRepository.save(booking);
     }
 
@@ -75,7 +80,8 @@ import java.util.Optional;
      * Removes booking
      * @param booking  booking
      */
-    @Override public void deleteBooking(Booking booking) {
+    @Override
+    public void deleteBooking(Booking booking) {
         bookingRepository.delete(booking);
     }
 
@@ -84,7 +90,8 @@ import java.util.Optional;
      * @param id  booking id
      * @return booking info
      */
-    @Override public Optional<Booking> getBooking(Long id) {
+    @Override
+    public Optional<Booking> getBooking(Long id) {
         return bookingRepository.findById(id);
     }
 }

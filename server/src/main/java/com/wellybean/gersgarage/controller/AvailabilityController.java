@@ -26,7 +26,8 @@ public class AvailabilityController {
     private final AvailabilityService availabilityService;
     private final ServiceService serviceService;
 
-    @Autowired public AvailabilityController(final AvailabilityService availabilityService, final ServiceService serviceService) {
+    @Autowired
+    public AvailabilityController(final AvailabilityService availabilityService, final ServiceService serviceService) {
         this.availabilityService = availabilityService;
         this.serviceService = serviceService;
     }

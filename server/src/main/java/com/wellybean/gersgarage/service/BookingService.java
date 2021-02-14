@@ -1,10 +1,9 @@
 package com.wellybean.gersgarage.service;
 
-import com.wellybean.gersgarage.model.Booking;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import com.wellybean.gersgarage.model.Booking;
 
 public interface BookingService {
     Optional<List<Booking>> getAllBookingsForUser(String username);
