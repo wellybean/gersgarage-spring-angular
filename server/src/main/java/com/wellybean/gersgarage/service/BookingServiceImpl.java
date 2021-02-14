@@ -12,18 +12,31 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class BookingServiceImpl implements BookingService{
+/**
+ * Service for CRUD operations in Booking entity
+ */
+@Service public class BookingServiceImpl implements BookingService{
 
-    @Autowired
-    private BookingRepository bookingRepository;
+    private final BookingRepository bookingRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    /**
+     * Constructor for class BookingServiceImpl
+     * @param bookingRepository  booking repository interface
+     * @param userRepository  user repository interface
+     */
+    @Autowired public BookingServiceImpl(final BookingRepository bookingRepository,
+                                         final UserRepository userRepository) {
+        this.bookingRepository = bookingRepository;
+        this.userRepository = userRepository;
+    }
 
-    @Transactional
-    @Override
-    public Optional<List<Booking>> getAllBookingsForUser(String username) {
+    /**
+     * Fetches all bookings for a user
+     * @param username user's username
+     * @return optional of list of bookings for user
+     */
+    @Transactional @Override public Optional<List<Booking>> getAllBookingsForUser(String username) {
         Optional<User> userOptional = userRepository.findByUsername(username);
         if(userOptional.isPresent()) {
             Optional<List<Booking>> bookings = bookingRepository.findAllByUser(userOptional.get());
@@ -40,23 +53,38 @@ public class BookingServiceImpl implements BookingService{
         return Optional.empty();
     }
 
-    @Override
-    public Optional<List<Booking>> getAllBookingsForDate(LocalDate date) {
+    /**
+     * Fetches all bookings for a specific date
+     * @param date  date
+     * @return optional of list of bookings
+     */
+    @Override public Optional<List<Booking>> getAllBookingsForDate(LocalDate date) {
         return bookingRepository.findAllByDate(date);
     }
 
-    @Override
-    public Booking makeBooking(Booking booking) {
+    /**
+     * Saves booking info into database
+     * @param booking  booking info with required fields
+     * @return persisted booking
+     */
+    @Override public Booking makeBooking(Booking booking) {
         return bookingRepository.save(booking);
     }
 
-    @Override
-    public void deleteBooking(Booking booking) {
+    /**
+     * Removes booking
+     * @param booking  booking
+     */
+    @Override public void deleteBooking(Booking booking) {
         bookingRepository.delete(booking);
     }
 
-    @Override
-    public Optional<Booking> getBooking(Long id) {
+    /**
+     * Fetches booking info from id
+     * @param id  booking id
+     * @return booking info
+     */
+    @Override public Optional<Booking> getBooking(Long id) {
         return bookingRepository.findById(id);
     }
 }

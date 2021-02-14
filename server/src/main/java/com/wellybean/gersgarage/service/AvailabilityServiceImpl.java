@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service;
 /**
  * Service for obtaining available dates for a specific service and times for specific dates and services
  */
-@Service
-public class AvailabilityServiceImpl implements AvailabilityService {
+@Service public class AvailabilityServiceImpl implements AvailabilityService {
 
     private final BookingService bookingService;
 
