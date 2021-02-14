@@ -5,10 +5,12 @@ import com.wellybean.gersgarage.model.Service;
 import com.wellybean.gersgarage.model.User;
 import com.wellybean.gersgarage.model.Vehicle;
 import com.wellybean.gersgarage.util.EntityFactory;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class AvailabilityServiceImplTest {
 
     @InjectMocks private AvailabilityServiceImpl availabilityService;

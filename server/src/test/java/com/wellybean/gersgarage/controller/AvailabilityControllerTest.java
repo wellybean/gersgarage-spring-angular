@@ -3,10 +3,12 @@ package com.wellybean.gersgarage.controller;
 import com.wellybean.gersgarage.model.Service;
 import com.wellybean.gersgarage.service.AvailabilityService;
 import com.wellybean.gersgarage.service.ServiceService;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -18,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class AvailabilityControllerTest {
 
     private static final long SERVICE_ID = 1L;
