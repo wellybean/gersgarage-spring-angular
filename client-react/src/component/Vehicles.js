@@ -67,6 +67,8 @@ export default function Vehicles() {
                 if(error.status === 401) {
                     authService.logout()
                     history.push("/login")
+                } else {
+                    notificationService.error("Failed to obtain list of vehicles.")
                 }
             }
         )
