@@ -1,32 +1,24 @@
 package com.wellybean.gersgarage.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
-
 import com.wellybean.gersgarage.dto.VehicleDTO;
 import com.wellybean.gersgarage.model.User;
 import com.wellybean.gersgarage.model.Vehicle;
 import com.wellybean.gersgarage.security.service.UserDetailsImpl;
 import com.wellybean.gersgarage.service.UserService;
 import com.wellybean.gersgarage.service.VehicleService;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/vehicle")

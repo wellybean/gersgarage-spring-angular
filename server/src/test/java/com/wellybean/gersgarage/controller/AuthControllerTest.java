@@ -28,14 +28,21 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class AuthControllerTest {
 
-    @InjectMocks private AuthController authController;
-    @Mock private AuthenticationManager authenticationManager;
-    @Mock private UserRepository userRepository;
-    @Mock private RoleRepository roleRepository;
-    @Mock private PasswordEncoder encoder;
-    @Mock private JwtUtils jwtUtils;
+    @InjectMocks
+    private AuthController authController;
+    @Mock
+    private AuthenticationManager authenticationManager;
+    @Mock
+    private UserRepository userRepository;
+    @Mock
+    private RoleRepository roleRepository;
+    @Mock
+    private PasswordEncoder encoder;
+    @Mock
+    private JwtUtils jwtUtils;
 
-    @Test public void authenticateUser_Succeeds() {
+    @Test
+    public void authenticateUser_Succeeds() {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername(VALID_USERNAME);
         loginRequest.setPassword(VALID_PASSWORD);
@@ -54,7 +61,8 @@ public class AuthControllerTest {
         assertEquals(expected, actual);
     }
 
-    @Ignore @Test public void registerUser() {
-
+    @Ignore
+    @Test
+    public void registerUser() {
     }
 }

@@ -1,8 +1,7 @@
 package com.wellybean.gersgarage.service;
 
-import com.wellybean.gersgarage.model.User;
-
 import java.util.Optional;
+import com.wellybean.gersgarage.model.User;
 
 public interface UserService {
     Optional<User> findById(Long id);

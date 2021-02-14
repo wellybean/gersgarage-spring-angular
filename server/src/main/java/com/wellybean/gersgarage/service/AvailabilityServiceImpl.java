@@ -18,10 +18,11 @@ public class AvailabilityServiceImpl implements AvailabilityService {
     private final BookingService bookingService;
 
     /**
-     * Constructor for class AvailabilityServiceImpl
+     * Constructs an instance of AvailabilityServiceImpl
      * @param bookingService  service for bookings
      */
-    @Autowired public AvailabilityServiceImpl(final BookingService bookingService) {
+    @Autowired
+    public AvailabilityServiceImpl(final BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
@@ -30,7 +31,8 @@ public class AvailabilityServiceImpl implements AvailabilityService {
      * @param service  maintenance check service
      * @return list of available dates
      */
-    @Override public List<LocalDate> getAvailableDatesForService(final com.wellybean.gersgarage.model.Service service) {
+    @Override
+    public List<LocalDate> getAvailableDatesForService(final com.wellybean.gersgarage.model.Service service) {
         // Final list
         List<LocalDate> listAvailableDates = new ArrayList<>();
 
@@ -61,7 +63,8 @@ public class AvailabilityServiceImpl implements AvailabilityService {
      * @param date  the date of the maintenance service
      * @return  the list of available slots
      */
-    @Override public List<LocalTime> getAvailableTimesForServiceAndDate(final com.wellybean.gersgarage.model.Service service, LocalDate date) {
+    @Override
+    public List<LocalTime> getAvailableTimesForServiceAndDate(final com.wellybean.gersgarage.model.Service service, LocalDate date) {
 
         LocalTime garageOpening = LocalTime.of(9,0);
         LocalTime garageClosing = LocalTime.of(17, 0);

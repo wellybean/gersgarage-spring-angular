@@ -1,12 +1,7 @@
 package com.wellybean.gersgarage.dto;
 
-import com.wellybean.gersgarage.model.Booking;
 import com.wellybean.gersgarage.model.Vehicle;
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 public class VehicleDTO {

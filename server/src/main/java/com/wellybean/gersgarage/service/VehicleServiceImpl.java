@@ -2,13 +2,10 @@ package com.wellybean.gersgarage.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import com.wellybean.gersgarage.model.User;
 import com.wellybean.gersgarage.model.Vehicle;
 import com.wellybean.gersgarage.repository.UserRepository;
 import com.wellybean.gersgarage.repository.VehicleRepository;
-
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
-    @Autowired
-    private VehicleRepository vehicleRepository;
+    private final VehicleRepository vehicleRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public VehicleServiceImpl(final VehicleRepository vehicleRepository, final UserRepository userRepository) {
+        this.vehicleRepository = vehicleRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public void deleteVehicle(final Vehicle vehicle) {

@@ -23,11 +23,15 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class AvailabilityControllerTest {
 
-    @InjectMocks private AvailabilityController availabilityController;
-    @Mock private AvailabilityService availabilityService;
-    @Mock private ServiceService serviceService;
+    @InjectMocks
+    private AvailabilityController availabilityController;
+    @Mock
+    private AvailabilityService availabilityService;
+    @Mock
+    private ServiceService serviceService;
 
-    @Test public void test_getAvailableDates_succeeds() {
+    @Test
+    public void test_getAvailableDates_succeeds() {
         Service service = new Service();
         List<LocalDate> availableDates = new ArrayList<>();
         when(serviceService.findById(VALID_ID)).thenReturn(Optional.of(service));
@@ -39,7 +43,8 @@ public class AvailabilityControllerTest {
         verify(serviceService).findById(VALID_ID);
     }
 
-    @Test public void test_getAvailableDates_fails_invalidServiceId() {
+    @Test
+    public void test_getAvailableDates_fails_invalidServiceId() {
         when(serviceService.findById(VALID_ID)).thenReturn(Optional.empty());
 
         var response = availabilityController.getAvailableDates(VALID_ID);
@@ -48,7 +53,8 @@ public class AvailabilityControllerTest {
         verify(serviceService).findById(VALID_ID);
     }
 
-    @Test public void test_getAvailableTimes_succeeds() {
+    @Test
+    public void test_getAvailableTimes_succeeds() {
         Service service = EntityFactory.getServiceWithNoBookings(60);
         LocalDate dateUnderTest = LocalDate.now().plusDays(7);
         List<LocalTime> availableTimes = new ArrayList<>();
@@ -61,7 +67,8 @@ public class AvailabilityControllerTest {
         verify(serviceService).findById(VALID_ID);
     }
 
-    @Test public void test_getAvailableTimes_fails_invalidServiceId() {
+    @Test
+    public void test_getAvailableTimes_fails_invalidServiceId() {
         LocalDate date = LocalDate.now().plusDays(7);
         when(serviceService.findById(VALID_ID)).thenReturn(Optional.empty());
 
@@ -71,7 +78,8 @@ public class AvailabilityControllerTest {
         verify(serviceService).findById(VALID_ID);
     }
 
-    @Test public void test_getAvailableTimes_fails_invalidDate() {
+    @Test
+    public void test_getAvailableTimes_fails_invalidDate() {
         LocalDate date = LocalDate.now().minusDays(7);
 
         ResponseEntity<?> response = availabilityController.getAvailableTimes(VALID_ID, date);

@@ -1,12 +1,9 @@
 package com.wellybean.gersgarage.dto;
 
+import java.time.format.DateTimeFormatter;
 import com.wellybean.gersgarage.model.Booking;
 import com.wellybean.gersgarage.model.Service;
 import lombok.Data;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 @Data
 public class BookingDTO {

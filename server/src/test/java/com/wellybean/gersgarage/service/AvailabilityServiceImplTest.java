@@ -24,10 +24,13 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class AvailabilityServiceImplTest {
 
-    @InjectMocks private AvailabilityServiceImpl availabilityService;
-    @Mock private BookingService bookingService;
+    @InjectMocks
+    private AvailabilityServiceImpl availabilityService;
+    @Mock
+    private BookingService bookingService;
 
-    @Test public void test_getAvailableDatesForService_succeeds_noBookings() {
+    @Test
+    public void test_getAvailableDatesForService_succeeds_noBookings() {
         Service service = EntityFactory.getServiceWithNoBookings(60);
 
         availabilityService.getAvailableDatesForService(service);
@@ -36,7 +39,8 @@ public class AvailabilityServiceImplTest {
         }
     }
 
-    @Test public void test_getAvailableDatesForService_succeeds_oneDayWithBookings() {
+    @Test
+    public void test_getAvailableDatesForService_succeeds_oneDayWithBookings() {
         Service service = EntityFactory.getServiceWithNoBookings(120);
 
         // List of already existing bookings for specific date
@@ -56,7 +60,8 @@ public class AvailabilityServiceImplTest {
         }
     }
 
-    @Test public void test_getAvailableDatesForService_succeeds_oneDayFullyBooked() {
+    @Test
+    public void test_getAvailableDatesForService_succeeds_oneDayFullyBooked() {
         Service service = EntityFactory.getServiceWithNoBookings(7 * 60);
         LocalDate dateUnderTest = LocalDate.now().plusDays(7);
         // List of already existing bookings for specific date
@@ -76,7 +81,8 @@ public class AvailabilityServiceImplTest {
         assertFalse(availableDates.contains(dateUnderTest));
     }
 
-    @Test public void test_getAvailableTimesForServiceAndDate_succeeds_allSlotsAvailable() {
+    @Test
+    public void test_getAvailableTimesForServiceAndDate_succeeds_allSlotsAvailable() {
         Service service = EntityFactory.getServiceWithNoBookings(60);
         LocalDate date = LocalDate.now().plusDays(7);
         List<LocalTime> expected = EntityFactory.getListOfAvailableTimes(new int[]{9, 10, 11, 12, 13, 14, 15, 16});
@@ -87,7 +93,8 @@ public class AvailabilityServiceImplTest {
         assertEquals(expected, actual);
     }
 
-    @Test public void test_getAvailableTimesForServiceAndDate_succeeds_someSlotsAvailable() {
+    @Test
+    public void test_getAvailableTimesForServiceAndDate_succeeds_someSlotsAvailable() {
         // Service
         Service service1 = EntityFactory.getServiceWithNoBookings(60);
         Service service2 = EntityFactory.getServiceWithNoBookings(120);
@@ -106,7 +113,8 @@ public class AvailabilityServiceImplTest {
         assertEquals(expected, actual);
     }
 
-    @Test public void test_getAvailableTimesForServiceAndDate_succeeds_someSlotsAvailable_v2() {
+    @Test
+    public void test_getAvailableTimesForServiceAndDate_succeeds_someSlotsAvailable_v2() {
         // Service
         Service service1 = EntityFactory.getServiceWithNoBookings(60);
         Service service2 = EntityFactory.getServiceWithNoBookings(120);
@@ -125,7 +133,8 @@ public class AvailabilityServiceImplTest {
         assertEquals(expected, actual);
     }
 
-    @Test public void test_getAvailableTimesForServiceAndDate_succeeds_someSlotsAvailable_v3() {
+    @Test
+    public void test_getAvailableTimesForServiceAndDate_succeeds_someSlotsAvailable_v3() {
         // Service
         Service service1 = EntityFactory.getServiceWithNoBookings(60);
         Service service2 = EntityFactory.getServiceWithNoBookings(120);

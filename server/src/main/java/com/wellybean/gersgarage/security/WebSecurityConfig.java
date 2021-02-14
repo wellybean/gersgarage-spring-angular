@@ -1,9 +1,11 @@
 package com.wellybean.gersgarage.security;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import com.wellybean.gersgarage.security.jwt.AuthEntryPointJwt;
 import com.wellybean.gersgarage.security.jwt.AuthTokenFilter;
 import com.wellybean.gersgarage.security.service.UserDetailsServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +23,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -71,8 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST"));
         configuration.setAllowCredentials(true);
         configuration.addAllowedOrigin("*");

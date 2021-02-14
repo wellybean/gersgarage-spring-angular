@@ -1,9 +1,7 @@
 package com.wellybean.gersgarage.repository;
 
 import java.util.Optional;
-
 import com.wellybean.gersgarage.model.User;
-
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
