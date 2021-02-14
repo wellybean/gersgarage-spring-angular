@@ -23,14 +23,9 @@ public class AvailabilityControllerTest {
 
     private static final long SERVICE_ID = 1L;
 
-    @InjectMocks
-    private AvailabilityController availabilityController;
-
-    @Mock
-    private AvailabilityService availabilityService;
-
-    @Mock
-    private ServiceService serviceService;
+    @InjectMocks private AvailabilityController availabilityController;
+    @Mock private AvailabilityService availabilityService;
+    @Mock private ServiceService serviceService;
 
     @Test
     public void test_getAvailableDates_succeeds() {
