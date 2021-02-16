@@ -58,12 +58,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeRequests().antMatchers("/api/auth/**").permitAll().and()
-            .authorizeRequests().antMatchers("/h2-console/**").permitAll().and()
-            .authorizeRequests().antMatchers(HttpMethod.OPTIONS,"*").permitAll()
-            .anyRequest().authenticated();
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests().antMatchers("/api/auth/**").permitAll().and()
+                // Swagger UI exceptions
+                .authorizeRequests().antMatchers("/swagger-ui.html").permitAll().and()
+                .authorizeRequests().antMatchers("/webjars/**").permitAll().and()
+                .authorizeRequests().antMatchers("/swagger-resources/**").permitAll().and()
+                .authorizeRequests().antMatchers("/v2/api-docs").permitAll().and()
+                // End of Swagger UI exceptions
+                .authorizeRequests().antMatchers("/h2-console/**").permitAll().and()
+                .authorizeRequests().antMatchers(HttpMethod.OPTIONS,"*").permitAll()
+                .anyRequest().authenticated();
         
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
