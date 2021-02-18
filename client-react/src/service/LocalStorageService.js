@@ -23,4 +23,9 @@ const isTokenSet = () => {
     }
 }
 
-export default { saveToken, removeToken, isTokenSet, getToken }
+const getPriviledges = () => {
+    const priviledges = window.localStorage.getItem("roles");
+    return priviledges === null ? [] : priviledges.split(",")
+}
+
+export default { saveToken, removeToken, isTokenSet, getToken, getPriviledges }
