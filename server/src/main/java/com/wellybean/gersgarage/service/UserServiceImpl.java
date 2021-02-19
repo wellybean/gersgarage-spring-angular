@@ -1,5 +1,7 @@
 package com.wellybean.gersgarage.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import com.wellybean.gersgarage.model.User;
 import com.wellybean.gersgarage.repository.UserRepository;
@@ -31,5 +33,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(final Long id) {
         return userRepository.findById(id);
+    }
+
+    /**
+     * Finds all users
+     * @return list of users
+     */
+    @Override
+    public List<User> findAll() {
+        List<User> userList = new ArrayList<>();
+        userRepository.findAll().forEach(userList::add);
+        return userList;
     }
 }
