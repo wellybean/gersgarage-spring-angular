@@ -22,4 +22,10 @@ public class UserServiceImplTest {
         userService.findById(VALID_ID);
         verify(userRepository).findById(VALID_ID);
     }
+
+    @Test
+    public void test_findAll_succeeds() {
+        userService.findAll();
+        verify(userRepository).findAll();
+    }
 }
