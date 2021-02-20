@@ -45,4 +45,13 @@ public class UserServiceImpl implements UserService {
         userRepository.findAll().forEach(userList::add);
         return userList;
     }
+
+    /**
+     * Removes a user
+     * @param user  user
+     */
+    @Override
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
 }

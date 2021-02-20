@@ -11,4 +11,7 @@ public class Constants {
     // Service
     public static final String SERVICE_DESCRIPTION = "mockServiceDescription";
     public static final Double SERVICE_PRICE = 100.00;
+    // User
+    public static final String VALID_FIRST_NAME = "mockFirstName";
+    public static final String VALID_LAST_NAME = "mockLastName";
 }

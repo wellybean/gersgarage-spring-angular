@@ -7,4 +7,5 @@ import com.wellybean.gersgarage.model.User;
 public interface UserService {
     Optional<User> findById(Long id);
     List<User> findAll();
+    void deleteUser(User user);
 }
