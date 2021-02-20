@@ -48,7 +48,7 @@ import { Switch, Redirect, Route } from 'react-router-dom'
           <Route path="/user-home">
             { loggedStatus && roles.includes("ROLE_USER") ? <UserHome /> : <Redirect to="/login" /> }
           </Route>
-          <Route path="/user-admin">
+          <Route path="/admin-home">
             { loggedStatus && roles.includes("ROLE_ADMIN") ? <AdminHome /> : <Redirect to="/login" /> }
           </Route>
         </Switch>
