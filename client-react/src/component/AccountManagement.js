@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Table, TableBody, TableContainer, TableHead, TableRow, TableCell, Typography, Button, Modal, FormControl, InputLabel, OutlinedInput, Select, MenuItem } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import userService from '../service/UserService'
+import notificationService from '../service/NotificationService'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const useStyles = makeStyles((theme) =>({
     table: {
@@ -52,17 +54,17 @@ export default function AccountManagement() {
             )
     })
 
-    // const handleClickDeleteUser = id => {
-    //     userService
-    //         .deleteService(id)
-    //         .then(
-    //             () => {
-    //                 setVehicles(vehicles.filter(vehicle => vehicle.id !== id))
-    //                 notificationService.success("Vehicle deleted successfully.")
-    //             },
-    //             error => notificationService.error(`Failed to delete vehicle due to: ${error}`)
-    //         )
-    // }
+    const handleClickDeleteUser = id => {
+        userService
+            .deleteUserAccount(id)
+            .then(
+                () => {
+                    setUsers(users.filter(user => user.id !== id))
+                    notificationService.success("User account deleted successfully.")
+                },
+                error => notificationService.error(`Failed to delete user account due to: ${error}`)
+            )
+    }
 
     return(
         <div>
@@ -90,17 +92,17 @@ export default function AccountManagement() {
                                         <TableCell align="center">{user.email}</TableCell>
                                         <TableCell align="center">{user.phoneNumber}</TableCell>
                                         <TableCell align="center">{user.roles.map(role => <p>{role}</p>)}</TableCell>
-                                        {/* <TableCell aligh="center" style={{textAlign:'center'}}>
+                                        <TableCell aligh="center" style={{textAlign:'center'}}>
                                             <Button 
                                                 variant="contained" 
                                                 color="secondary" 
-                                                onClick={() => handleClickDeleteVehicle(vehicle.id)} 
+                                                onClick={() => handleClickDeleteUser(user.id)} 
                                                 startIcon={<DeleteIcon />}
                                                 size="small"
                                             >
                                                 Remove
                                             </Button>
-                                        </TableCell> */}
+                                        </TableCell>
                                     </TableRow>
                                 )
                             }

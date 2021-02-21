@@ -12,4 +12,13 @@ const getUsers = () => {
             .then(response => response.data)
 }
 
-export default { getUsers }
+const deleteUserAccount = (id) => {
+    return axios
+            .delete(
+                `${baseUrl}/${id}`, 
+                { 'headers': { 'Authorization': `Bearer ${localStorageService.getToken()}`}}
+            )
+            .then(response => response.data)
+}
+
+export default { getUsers, deleteUserAccount }
