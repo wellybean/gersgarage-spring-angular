@@ -1,8 +1,14 @@
 package com.wellybean.gersgarage.controller;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import com.wellybean.gersgarage.dto.UserDTO;
 import com.wellybean.gersgarage.model.User;
+import com.wellybean.gersgarage.security.service.UserDetailsImpl;
 import com.wellybean.gersgarage.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +18,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 @RestController
 @RequestMapping("/api/user")
 @PreAuthorize("hasRole('ADMIN')")
 public class UserController {
+
+    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
 
     private final UserService userService;
 
@@ -31,9 +35,9 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getAllUsers() {
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAdmin = loggedInUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
-        if(!isAdmin) {
+        if(!isAdmin(loggedInUser)) {
+            LOGGER.warn("[USER-CONTROL] - Unauthorized user {} tried to obtain all user information.", loggedInUser.getName());
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
@@ -43,20 +47,23 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUserAccount(@PathVariable Long id) {
-
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAdmin = loggedInUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
         Optional<User> userOptional = userService.findById(id);
 
         if(userOptional.isPresent()) {
             User user = userOptional.get();
-            if(user.getId().equals(id) || isAdmin) {
+            if(user.getId().equals(id) || isAdmin(loggedInUser)) {
                 userService.deleteUser(user);
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    private boolean isAdmin(Authentication loggedInUser) {
+        return ((UserDetailsImpl) loggedInUser.getPrincipal())
+                .getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 }

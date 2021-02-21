@@ -29,6 +29,10 @@ public class EntityFactory {
     }
 
     public static User getUser(List<Role> roles) {
+        return getUser(VALID_ID, roles);
+    }
+
+    public static User getUser(Long id, List<Role> roles) {
         User user = new User();
         user.setId(VALID_ID);
         user.setEmail(VALID_EMAIL);
