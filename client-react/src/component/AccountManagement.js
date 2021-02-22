@@ -1,9 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { Table, TableBody, TableContainer, TableHead, TableRow, TableCell, Typography, Button, Modal, FormControl, InputLabel, OutlinedInput, Select, MenuItem } from "@material-ui/core"
-import { makeStyles } from '@material-ui/core/styles';
+import { Table, TableBody, TableContainer, TablePagination, TableHead, TableRow, TableCell, TableFooter, Button, Modal, FormControl, InputLabel, OutlinedInput, Select, MenuItem } from "@material-ui/core"
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import userService from '../service/UserService'
 import notificationService from '../service/NotificationService'
 import DeleteIcon from '@material-ui/icons/Delete'
+import Paper from '@material-ui/core/Paper';
+
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+  
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+  }))(TableRow);
 
 const useStyles = makeStyles((theme) =>({
     table: {
@@ -29,8 +48,6 @@ const useStyles = makeStyles((theme) =>({
     select: {
         marginTop: theme.spacing(1),
         width:"100%"
-    }, tableHead: {
-        fontWeight: "bold"
     }, panel: {
         textAlign: "center"
     }
@@ -40,6 +57,10 @@ export default function AccountManagement() {
 
     const classes = useStyles()
     const [users, setUsers] = useState([])
+
+    // table
+    const [page, setPage] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(10)
 
     useEffect(() => {
         userService
@@ -53,6 +74,15 @@ export default function AccountManagement() {
                 }
             )
     })
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    }
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    }
 
     const handleClickDeleteUser = id => {
         userService
@@ -68,31 +98,31 @@ export default function AccountManagement() {
 
     return(
         <div>
-            <TableContainer>
+            <TableContainer component={Paper}>
                     <Table className={classes.table}>
                         <TableHead>
-                            <TableRow className={classes.tableHead}>
-                                <TableCell className={classes.tableHead} align="center">ID</TableCell>
-                                <TableCell className={classes.tableHead} align="center">Username</TableCell>
-                                <TableCell className={classes.tableHead} align="center">Name</TableCell>
-                                <TableCell className={classes.tableHead} align="center">Email</TableCell>
-                                <TableCell className={classes.tableHead} align="center">Phone Number</TableCell>
-                                <TableCell className={classes.tableHead} align="center">Roles</TableCell>
-                                <TableCell className={classes.tableHead} align="center"></TableCell>
-                                <TableCell className={classes.tableHead} align="center"></TableCell>
-                            </TableRow>
+                            <StyledTableRow className={classes.tableHead}>
+                                <StyledTableCell className={classes.tableHead} align="center">ID</StyledTableCell>
+                                <StyledTableCell className={classes.tableHead} align="center">Username</StyledTableCell>
+                                <StyledTableCell className={classes.tableHead} align="center">Name</StyledTableCell>
+                                <StyledTableCell className={classes.tableHead} align="center">Email</StyledTableCell>
+                                <StyledTableCell className={classes.tableHead} align="center">Phone Number</StyledTableCell>
+                                <StyledTableCell className={classes.tableHead} align="center">Roles</StyledTableCell>
+                                <StyledTableCell className={classes.tableHead} align="center"></StyledTableCell>
+                                {/* <StyledTableCell className={classes.tableHead} align="center"></StyledTableCell> */}
+                            </StyledTableRow>
                         </TableHead>
                         <TableBody>
                             {
                                 users.map(user => 
-                                    <TableRow key={user.id}>
-                                        <TableCell align="center" >{user.id}</TableCell>
-                                        <TableCell align="center" >{user.username}</TableCell>
-                                        <TableCell align="center" >{user.fullName}</TableCell>
-                                        <TableCell align="center">{user.email}</TableCell>
-                                        <TableCell align="center">{user.phoneNumber}</TableCell>
-                                        <TableCell align="center">{user.roles.map(role => <p>{role}</p>)}</TableCell>
-                                        <TableCell aligh="center" style={{textAlign:'center'}}>
+                                    <StyledTableRow key={user.id}>
+                                        <StyledTableCell align="center" >{user.id}</StyledTableCell>
+                                        <StyledTableCell align="center" >{user.username}</StyledTableCell>
+                                        <StyledTableCell align="center" >{user.fullName}</StyledTableCell>
+                                        <StyledTableCell align="center">{user.email}</StyledTableCell>
+                                        <StyledTableCell align="center">{user.phoneNumber}</StyledTableCell>
+                                        <StyledTableCell align="center">{user.roles.map(role => <p>{role}</p>)}</StyledTableCell>
+                                        <StyledTableCell aligh="center" style={{textAlign:'center'}}>
                                             <Button 
                                                 variant="contained" 
                                                 color="secondary" 
@@ -102,11 +132,23 @@ export default function AccountManagement() {
                                             >
                                                 Remove
                                             </Button>
-                                        </TableCell>
-                                    </TableRow>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
                                 )
                             }
                         </TableBody>
+                        <TableFooter>
+                            <TableRow>
+                                <TablePagination 
+                                    rowsPerPageOptions={[10, 50]} 
+                                    count={users.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onChangePage={handleChangePage}
+                                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                                />
+                            </TableRow>
+                        </TableFooter>
                     </Table>
                 </TableContainer>
         </div>
