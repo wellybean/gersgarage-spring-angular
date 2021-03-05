@@ -29,6 +29,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Authorization controller
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -42,6 +45,14 @@ public class AuthController {
     private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
 
+    /**
+     * Constructs instance of authorization controller
+     * @param authenticationManager  authentication manager
+     * @param userRepository  repository for users
+     * @param roleRepository  repository for roles
+     * @param encoder  password encoder
+     * @param jwtUtils  token utilities, such as token generation and validation
+     */
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,
                           UserRepository userRepository,
@@ -55,6 +66,11 @@ public class AuthController {
         this.jwtUtils = jwtUtils;
     }
 
+    /**
+     * Exposes endpoint for signing in a user
+     * @param loginRequest  login request
+     * @return logged user information
+     */
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -85,6 +101,11 @@ public class AuthController {
 	
     }
 
+    /**
+     * Exposes endpoint for signing up a user
+     * @param signUpRequest  sign up request
+     * @return message response with either error or success message
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
