@@ -20,19 +20,35 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Vehicle Controller
+ */
 @RestController
 @RequestMapping("/api/vehicle")
 @PreAuthorize("hasRole('USER')")
 public class VehicleController {
 
     private static final Logger LOGGER = LogManager.getLogger(VehicleController.class);
-    
-    @Autowired
-    private VehicleService vehicleService;
 
-    @Autowired
-    private UserService userService;
+    private final VehicleService vehicleService;
+    private final UserService userService;
 
+    /**
+     * Constructs instance of vehicle controller
+     * @param vehicleService  vehicle service
+     * @param userService  user service
+     */
+    @Autowired
+    public VehicleController(VehicleService vehicleService, UserService userService) {
+        this.vehicleService = vehicleService;
+        this.userService = userService;
+    }
+
+    /**
+     * Exposes endpoint for registering a new vehicle
+     * @param vehicle  new vehicle required information
+     * @return persisted vehicle
+     */
     @PostMapping
     public ResponseEntity<VehicleDTO> registerVehicle(@Valid @RequestBody Vehicle vehicle) {
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
@@ -47,6 +63,10 @@ public class VehicleController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Exposes endpoint for obtaining all vehicles registered for a particular user
+     * @return list of registered vehicles
+     */
     @GetMapping
     public ResponseEntity<?> getVehiclesForUser() {
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
@@ -65,6 +85,11 @@ public class VehicleController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Exposes endpoint for deleting a registered vehicle for a particular user
+     * @param id  vehicle id
+     * @return HTTP response with 204 is deleted successfully and 400 if invalid request
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteVehicle(@PathVariable Long id) {
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
