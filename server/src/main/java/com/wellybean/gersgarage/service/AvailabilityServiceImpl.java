@@ -27,7 +27,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
     }
 
     /**
-     * Get all available dates for a specific service for the next three months from tomorrow
+     * Gets all available dates for a specific service for the next three months from tomorrow
      * @param service  maintenance check service
      * @return list of available dates
      */

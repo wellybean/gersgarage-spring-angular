@@ -1,4 +1,5 @@
 import axios from 'axios'
+import LocalStorageService from './LocalStorageService'
 
 import localStorageService from './LocalStorageService'
 
@@ -39,4 +40,8 @@ const isLoggedIn = () => {
     return localStorageService.isTokenSet()
 }
 
-export default { login, signUp, logout, isLoggedIn, isTokenValid }
+const getPriviledgesList = () => {
+    return LocalStorageService.getPriviledges();
+}
+
+export default { login, signUp, logout, isLoggedIn, isTokenValid, getPriviledgesList }

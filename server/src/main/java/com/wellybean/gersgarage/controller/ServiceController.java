@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/service")
 @PreAuthorize("hasRole('USER')")
 public class ServiceController {
+
+    private final ServiceService serviceService;
+
     @Autowired
-    private ServiceService serviceService;
+    public ServiceController(final ServiceService serviceService) {
+        this.serviceService = serviceService;
+    }
 
     @GetMapping
     public List<Service> getAllServices() {

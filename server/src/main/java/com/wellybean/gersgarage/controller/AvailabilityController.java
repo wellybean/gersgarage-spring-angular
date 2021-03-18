@@ -16,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller for obtaining available dates and times for a maintenance check
+ */
 @RestController
 @RequestMapping("/api/availability")
 @PreAuthorize("hasRole('USER')")
@@ -26,12 +29,23 @@ public class AvailabilityController {
     private final AvailabilityService availabilityService;
     private final ServiceService serviceService;
 
+    /**
+     * Constructs instance of availability controller
+     * @param availabilityService  service for availability of dates and times
+     * @param serviceService service for maintenance checks
+     */
     @Autowired
     public AvailabilityController(final AvailabilityService availabilityService, final ServiceService serviceService) {
         this.availabilityService = availabilityService;
         this.serviceService = serviceService;
     }
 
+    /**
+     * Exposes endpoint for obtaining all available dates for the next three months from today for a particular
+     * maintenance check
+     * @param id maintenance check id
+     * @return list of all available dates for the next three months for a maintenance check
+     */
     @GetMapping("/dates/{id}")
     public ResponseEntity<?> getAvailableDates(@PathVariable("id") final Long id) {
 
@@ -48,6 +62,12 @@ public class AvailabilityController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Exposes endpoint for obtaining all available times for a specific date and for a particular maintenance check
+     * @param serviceId  maintenance check id
+     * @param date  date
+     * @return list of available times for date and maintenance check
+     */
     @GetMapping("/times/{id}/{date}")
     public ResponseEntity<?> getAvailableTimes(@PathVariable("id") final Long serviceId,
                                                @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate date) {

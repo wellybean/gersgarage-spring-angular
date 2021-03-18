@@ -7,6 +7,7 @@ import Home from './component/Home';
 import Login from './component/Login';
 import Signup from './component/Signup';
 import UserHome from './component/UserHome';
+import AdminHome from './component/AdminHome';
 
 import authService from './service/AuthService'
 
@@ -15,6 +16,7 @@ import { Switch, Redirect, Route } from 'react-router-dom'
  const App = () => {
   
   const [loggedStatus, setLoggedStatus] = useState(authService.isLoggedIn())
+  const [roles, setRoles] = useState(authService.getPriviledgesList())
 
   // useEffect(() => {
   //   authService.isTokenValid().then(
@@ -24,6 +26,7 @@ import { Switch, Redirect, Route } from 'react-router-dom'
 
   const loggedStatusChange = () => {
     setLoggedStatus(authService.isLoggedIn())
+    setRoles(authService.getPriviledgesList())
   }
 
   return (
@@ -43,7 +46,10 @@ import { Switch, Redirect, Route } from 'react-router-dom'
             <Signup />
           </Route>
           <Route path="/user-home">
-            { loggedStatus ? <UserHome /> : <Redirect to="/login" /> }
+            { loggedStatus && roles.includes("ROLE_USER") ? <UserHome /> : <Redirect to="/login" /> }
+          </Route>
+          <Route path="/admin-home">
+            { loggedStatus && roles.includes("ROLE_ADMIN") ? <AdminHome /> : <Redirect to="/login" /> }
           </Route>
         </Switch>
     </div>
